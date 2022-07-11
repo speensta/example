@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.board.example.mapper.BoardMapper">
+
+	<select id="boardList" resultType="boardDTO" parameterType="com.board.example.util.Paging">
+		select * from (
+		select rownum rnum, t1.* from board t1
+		) where rnum &gt;= #{startRow} and rnum &lt;= #{endRow}
+		order by bno desc
+	</select>
+
+	<select id="boardView" resultType="boardDTO" parameterType="com.board.example.util.Paging">
+		select * from board where bno = #{bno}
+	</select>
+
+	<select id="boardCount" resultType="int" parameterType="com.board.example.util.Paging">
+			select count(*) from board
+	</select>
+
+	<update id="updateBoardHit" parameterType="com.board.example.util.Paging">
+		update board set hit = hit + 1 where bno = ${bno}
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
